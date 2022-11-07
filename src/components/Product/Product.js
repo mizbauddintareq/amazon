@@ -1,6 +1,6 @@
 const Product = (props) => {
   const { img, name, price, ratings, seller } = props.product;
-  console.log(props);
+  const { handleCart } = props;
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
@@ -12,7 +12,12 @@ const Product = (props) => {
         <p>Manufacturer : {seller}</p>
         <p>Rating: {ratings}</p>
       </div>
-      <button className="bg-orange-200 py-2 font-semibold">Add To Card</button>
+      <button
+        onClick={() => handleCart(props.product)}
+        className="bg-orange-200 py-2 font-semibold"
+      >
+        Add To Card
+      </button>
     </div>
   );
 };
