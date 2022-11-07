@@ -1,54 +1,26 @@
+import { useEffect, useState } from "react";
+import Product from "../Product/Product";
+
 const Shop = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
   return (
-    <div class="lg:flex w-11/12 mx-auto">
-      <div class="basis-3/4 mt-10">
-        <div class="lg:grid lg:grid-cols-3 gap-4">
-          <div>
-            <div className="card bg-base-100 shadow-xl">
-              <figure>
-                <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Buy Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card bg-base-100 shadow-xl">
-              <figure>
-                <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Buy Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card bg-base-100 shadow-xl">
-              <figure>
-                <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Buy Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="lg:flex w-11/12 mx-auto">
+      <div className="basis-3/4 mt-10">
+        <div className="lg:grid lg:grid-cols-3 gap-4">
+          {products.map((pd) => (
+            <Product key={pd.id} product={pd} />
+          ))}
         </div>
       </div>
-      <div class="basis-1/4">
-        <h1>Order Summery</h1>
+      <div className="basis-1/4">
+        <h1 className="text-4xl font-semibold text-center">Order Summery</h1>
       </div>
     </div>
   );
