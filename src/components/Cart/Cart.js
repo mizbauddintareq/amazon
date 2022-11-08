@@ -5,16 +5,32 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Cart = ({ cart }) => {
+  let quantity = 0;
+  let totalPrice = 0;
+  let shippingCharge = 0;
+
+  for (const product of cart) {
+    quantity = quantity + product.quantity;
+    totalPrice = totalPrice + product.price * product.quantity;
+    shippingCharge = shippingCharge + product.shipping;
+  }
+
+  const tax = parseFloat((totalPrice * 0.1).toFixed(2));
+
+  const grandTotal = totalPrice + shippingCharge + tax;
+
   return (
-    <div className="bg-orange-200 p-7">
+    <div className="bg-orange-200 p-7 lg:fixed">
       <h1 className="text-3xl font-semibold text-center">Order Summery</h1>
       <div className="text-xl my-10 ">
-        <p>Selected Items: {cart.length}</p>
-        <p className="my-4">Total Price: $0</p>
-        <p>Total Shipping Charge: $5</p>
-        <p className="my-4">Tax: $114</p>
+        <p>Selected Items: {quantity}</p>
+        <p className="my-4">Total Price: ${totalPrice}</p>
+        <p>Total Shipping Charge: ${shippingCharge}</p>
+        <p className="my-4">Tax: ${tax}</p>
       </div>
-      <h3 className="text-2xl font-semibold mb-12">Grand Total: $1559</h3>
+      <h3 className="text-2xl font-semibold mb-12">
+        Grand Total: ${grandTotal}
+      </h3>
 
       <button className="btn btn-wide hover:bg-red-500 bg-red-500 border-0">
         Clear Cart
